@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using Food_Journal.DB;
+using Food_Journal.DB.Repositories;
+using Food_Journal.Shared.Pages;
+using System;
+using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Food_Journal
@@ -22,6 +16,8 @@ namespace Food_Journal
     /// </summary>
     sealed partial class App : Application
     {
+        public static IUnityContainer Container { get; } = new UnityContainer();
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -45,6 +41,9 @@ namespace Food_Journal
                // this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+
+            _RegisterDependencies();
+
             Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -72,7 +71,7 @@ namespace Food_Journal
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(LoginPage), e.Arguments);
                 }
                 // Ensure the current window is active
                 Windows.UI.Xaml.Window.Current.Activate();
@@ -101,6 +100,13 @@ namespace Food_Journal
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        void _RegisterDependencies()
+        {
+            Container
+                .RegisterSingleton<ApplicationContext>()
+                .RegisterType<IUserRepository, UserRepository>();
         }
     }
 }

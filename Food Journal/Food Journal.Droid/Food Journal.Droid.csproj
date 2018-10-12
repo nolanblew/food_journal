@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,6 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLight">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Unity">
+      <Version>5.8.11</Version>
+    </PackageReference>
     <PackageReference Include="Uno.UI">
       <Version>1.40.0</Version>
     </PackageReference>
@@ -79,6 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Food Journal.DB\Food Journal.DB.csproj">
+      <Project>{5161da94-694d-4605-a807-66ebca9743ca}</Project>
+      <Name>Food Journal.DB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Food_Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" Condition="Exists('..\Food_Journal.Shared\Food_Journal.Shared.projitems')" />
   <Import Project="..\Food Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" />
