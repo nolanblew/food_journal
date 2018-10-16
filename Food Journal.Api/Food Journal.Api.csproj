@@ -6,6 +6,7 @@
     <AssemblyName>FoodJournal.Api</AssemblyName>
     <Authors>Nolan Blew</Authors>
     <Product>Food Journal</Product>
+    <RootNamespace>Food_Journal.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

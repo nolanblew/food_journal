@@ -11,6 +11,9 @@
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
     </PackageReference>
+    <PackageReference Include="NETStandard.Library">
+      <Version>2.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Unity">
       <Version>5.8.11</Version>
     </PackageReference>
@@ -112,6 +115,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Food Journal.ClientApi\Food Journal.ClientApi.csproj">
+      <Project>{44f0a917-3eb1-4beb-851c-fe062c7c3eb1}</Project>
+      <Name>Food Journal.ClientApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Food_Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" Condition="Exists('..\Food_Journal.Shared\Food_Journal.Shared.projitems')" />
   <Import Project="..\Food Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" />
