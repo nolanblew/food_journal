@@ -6,13 +6,10 @@
       <Version>2.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.2.2</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="NETStandard.Library">
-      <Version>2.0.3</Version>
     </PackageReference>
     <PackageReference Include="Unity">
       <Version>5.8.11</Version>
@@ -111,7 +108,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Food_Journal.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -120,6 +116,10 @@
     <ProjectReference Include="..\..\Food Journal.ClientApi\Food Journal.ClientApi.csproj">
       <Project>{44f0a917-3eb1-4beb-851c-fe062c7c3eb1}</Project>
       <Name>Food Journal.ClientApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Food Journal.DB\Food Journal.DB.csproj">
+      <Project>{5161da94-694d-4605-a807-66ebca9743ca}</Project>
+      <Name>Food Journal.DB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Food_Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" Condition="Exists('..\Food_Journal.Shared\Food_Journal.Shared.projitems')" />

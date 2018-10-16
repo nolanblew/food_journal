@@ -6,6 +6,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Food_Journal.ClientApi.Controllers;
+using Food_Journal.Shared.ViewModels;
 
 namespace Food_Journal
 {
@@ -54,7 +56,7 @@ namespace Food_Journal
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
+                { 
                     //TODO: Load state from previously suspended application
                 }
 
@@ -102,9 +104,13 @@ namespace Food_Journal
 
         void _RegisterDependencies()
         {
-            //Container
-            //    .RegisterSingleton<ApplicationContext>()
-            //    .RegisterType<IUserRepository, UserRepository>();
+            // API Services
+            Container
+                .RegisterType<IUserController, UserController>();
+
+            // View Models
+            Container
+                .RegisterType<LoginPageVM>();
         }
     }
 }

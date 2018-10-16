@@ -1,17 +1,24 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
+using Food_Journal.ClientApi.Controllers;
 using Food_Journal.Shared.Utils;
 
 namespace Food_Journal.Shared.ViewModels
 {
     public class LoginPageVM : BindableBase
     {
-        public LoginPageVM()
+        public LoginPageVM(IUserController userController)
         {
+            _userController = userController;
+
             LoginCommand = new DelegateCommand(_Login);
             CreateUserCommand = new DelegateCommand(_CreateUser);
         }
+
+        IUserController _userController;
 
         public ICommand LoginCommand { get; }
         public ICommand CreateUserCommand { get; }
@@ -53,7 +60,22 @@ namespace Food_Journal.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                await Task.Delay(TimeSpan.FromSeconds(5));
+                var results = await _userController.GetUsers();
+
+                var loggedInUser = results.FirstOrDefault(u => u.Username.Equals(Username, StringComparison.OrdinalIgnoreCase)
+                                                      && u.Password == Password);
+
+                if (loggedInUser == null)
+                {
+                    ErrorMessage = "Error: Username and password do not match";
+                    Password = string.Empty;
+                }
+                else
+                {
+                    new MessageDialog($"Hello, {loggedInUser.Name}!");
+                    Username = string.Empty;
+                    Password = string.Empty;
+                }
             }
             finally
             {
