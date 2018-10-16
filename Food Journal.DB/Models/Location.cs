@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Food_Journal.DB.Models
 {
@@ -7,7 +6,6 @@ namespace Food_Journal.DB.Models
     {
         public string GoogleMapsId { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
         public string Address { get; set; }

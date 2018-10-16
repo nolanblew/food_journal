@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Food_Journal.DB.Migrations
+namespace FoodJournal.Api.Migrations
 {
     public partial class InitialMigration : Migration
     {

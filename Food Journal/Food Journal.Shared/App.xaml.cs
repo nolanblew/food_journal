@@ -1,6 +1,4 @@
-﻿using Food_Journal.DB;
-using Food_Journal.DB.Repositories;
-using Food_Journal.Shared.Pages;
+﻿using Food_Journal.Shared.Pages;
 using System;
 using Unity;
 using Windows.ApplicationModel;
@@ -104,9 +102,9 @@ namespace Food_Journal
 
         void _RegisterDependencies()
         {
-            Container
-                .RegisterSingleton<ApplicationContext>()
-                .RegisterType<IUserRepository, UserRepository>();
+            //Container
+            //    .RegisterSingleton<ApplicationContext>()
+            //    .RegisterType<IUserRepository, UserRepository>();
         }
     }
 }

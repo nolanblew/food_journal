@@ -25,7 +25,7 @@
     <AssemblyName>Food_Journal</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -112,12 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Food Journal.DB\Food Journal.DB.csproj">
-      <Project>{5161da94-694d-4605-a807-66ebca9743ca}</Project>
-      <Name>Food Journal.DB</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Food_Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" Condition="Exists('..\Food_Journal.Shared\Food_Journal.Shared.projitems')" />
   <Import Project="..\Food Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" />

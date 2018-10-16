@@ -28,7 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Services\UserService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\BindableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Commands\DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPageVM.cs" />

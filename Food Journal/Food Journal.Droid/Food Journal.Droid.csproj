@@ -92,12 +92,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Food Journal.DB\Food Journal.DB.csproj">
-      <Project>{5161da94-694d-4605-a807-66ebca9743ca}</Project>
-      <Name>Food Journal.DB</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\Food_Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" Condition="Exists('..\Food_Journal.Shared\Food_Journal.Shared.projitems')" />
   <Import Project="..\Food Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
