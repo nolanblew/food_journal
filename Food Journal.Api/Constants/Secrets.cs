@@ -1,4 +1,4 @@
-﻿namespace Food_Journal.DB.Constants
+﻿namespace Food_Journal.Api.Constants
 {
     public interface ISecrets
     {

@@ -2,7 +2,7 @@
 using Food_Journal.DB.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Food_Journal.DB
+namespace Food_Journal.Api
 {
     public class ApplicationContext : DbContext
     {
@@ -27,31 +27,55 @@ namespace Food_Journal.DB
 
                     userRecords.HasIndex(u => u.Username)
                         .IsUnique();
+
+                    userRecords.Property(u => u.Username)
+                        .IsRequired();
+                    userRecords.Property(u => u.Password)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity<Location>(
                 locationRecords =>
                 {
-                    locationRecords.HasKey(u => u.Id);
+                    locationRecords.HasKey(l => l.Id);
 
-                    locationRecords.HasIndex(u => u.GoogleMapsId)
+                    locationRecords.HasIndex(l => l.GoogleMapsId)
                         .IsUnique();
+
+                    locationRecords.Property(l => l.Name)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity<Entry>(
                 entityRecords =>
                 {
-                    entityRecords.HasKey(u => u.Id);
+                    entityRecords.HasKey(e => e.Id);
+
+                    entityRecords.HasOne(e => e.User)
+                        .WithMany(u => u.JournalEntries)
+                        .IsRequired();
+
+                    entityRecords.HasOne(e => e.Location)
+                        .WithMany(l => l.Entries)
+                        .HasForeignKey(e => e.LocationId)
+                        .IsRequired();
+
+                    entityRecords.Property(e => e.Title)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity<FoodItemEntry>(
                 foodItemEntryRecords =>
                 {
-                    foodItemEntryRecords.HasKey(u => u.Id);
+                    foodItemEntryRecords.HasKey(e => e.Id);
 
-                    foodItemEntryRecords.HasOne(u => u.Entry)
+                    foodItemEntryRecords.HasOne(e => e.Entry)
                         .WithMany(e => e.FoodEntries)
-                        .HasForeignKey(e => e.EntryId);
+                        .HasForeignKey(e => e.EntryId)
+                        .IsRequired();
+
+                    foodItemEntryRecords.Property(e => e.Name)
+                        .IsRequired();
                 });
         }
     }
