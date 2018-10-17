@@ -72,9 +72,9 @@ namespace Food_Journal.Shared.ViewModels
                 }
                 else
                 {
-                    new MessageDialog($"Hello, {loggedInUser.Name}!");
                     Username = string.Empty;
                     Password = string.Empty;
+                    
                 }
             }
             finally

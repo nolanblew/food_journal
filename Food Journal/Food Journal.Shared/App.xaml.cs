@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Food_Journal.ClientApi.Controllers;
+using Food_Journal.Shared.Services;
 using Food_Journal.Shared.ViewModels;
 
 namespace Food_Journal
@@ -107,6 +108,10 @@ namespace Food_Journal
             // API Services
             Container
                 .RegisterType<IUserController, UserController>();
+
+            // Local Services
+            Container
+                .RegisterSingleton<IApplicationState, ApplicationState>();
 
             // View Models
             Container

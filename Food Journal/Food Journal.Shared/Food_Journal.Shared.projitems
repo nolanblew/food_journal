@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\GoogleService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
