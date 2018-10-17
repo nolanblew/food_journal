@@ -36,12 +36,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Uno.GalaSoft.MvvmLight.Platform" Version="5.4.0-uno.134" />
 		<PackageReference Include="Uno.UI" Version="1.40.0" />
 		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.17" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Food Journal.ClientApi\Food Journal.ClientApi.csproj" />
+	  <ProjectReference Include="..\..\Food Journal.DB\Food Journal.DB.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\Food_Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" Condition="Exists('..\Food_Journal.Shared\Food_Journal.Shared.projitems')" />
 
 	<Import Project="..\Food Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" />
-
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
 </Project>

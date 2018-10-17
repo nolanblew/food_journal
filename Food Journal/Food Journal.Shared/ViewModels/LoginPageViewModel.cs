@@ -1,24 +1,33 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.UI.Popups;
-using Food_Journal.ClientApi.Controllers;
+﻿using Food_Journal.ClientApi.Controllers;
 using Food_Journal.Shared.Utils;
+using Food_Journal.Shared.Helpers;
+using System;
+using System.Linq;
+using System.Windows.Input;
+using Food_Journal.Shared.Constants;
+using Food_Journal.Shared.Services;
+using GalaSoft.MvvmLight.Views;
 
 namespace Food_Journal.Shared.ViewModels
 {
-    public class LoginPageVM : BindableBase
+    public class LoginPageViewModel : BindableBase
     {
-        public LoginPageVM(IUserController userController)
+        public LoginPageViewModel(
+            IApplicationState applicationState,
+            IUserController userController,
+            INavigationService navigationService)
         {
+            _applicationState = applicationState;
             _userController = userController;
+            _navigationService = navigationService;
 
             LoginCommand = new DelegateCommand(_Login);
             CreateUserCommand = new DelegateCommand(_CreateUser);
         }
 
-        IUserController _userController;
+        readonly IApplicationState _applicationState;
+        readonly IUserController _userController;
+        readonly INavigationService _navigationService;
 
         public ICommand LoginCommand { get; }
         public ICommand CreateUserCommand { get; }
@@ -62,8 +71,9 @@ namespace Food_Journal.Shared.ViewModels
                 IsBusy = true;
                 var results = await _userController.GetUsers();
 
+                var hashedPassword = CryptoHelper.HashPassword(Password);
                 var loggedInUser = results.FirstOrDefault(u => u.Username.Equals(Username, StringComparison.OrdinalIgnoreCase)
-                                                      && u.Password == Password);
+                                                      && u.Password == hashedPassword);
 
                 if (loggedInUser == null)
                 {
@@ -74,7 +84,7 @@ namespace Food_Journal.Shared.ViewModels
                 {
                     Username = string.Empty;
                     Password = string.Empty;
-                    
+                    _applicationState.CurrentUser = loggedInUser;
                 }
             }
             finally
@@ -85,7 +95,7 @@ namespace Food_Journal.Shared.ViewModels
 
         void _CreateUser()
         {
-
+            _navigationService.NavigateTo(PageTokens.RegisterPage);
         }
     }
 }

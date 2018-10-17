@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Food_Journal.Shared.Pages.RegisterPage"
+    x:Class="Food_Journal.Shared.Views.RegisterPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Food_Journal.Shared.Pages"

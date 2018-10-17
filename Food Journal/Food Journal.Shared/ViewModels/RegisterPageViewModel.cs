@@ -3,9 +3,9 @@ using Food_Journal.Shared.Services;
 
 namespace Food_Journal.Shared.ViewModels
 {
-    public class RegisterPageVM
+    public class RegisterPageViewModel
     {
-        public RegisterPageVM(
+        public RegisterPageViewModel(
             IApplicationState applicationState,
             IUserController userController)
         {

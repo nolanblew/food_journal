@@ -1,5 +1,4 @@
-﻿using Food_Journal.Shared.Pages;
-using System;
+﻿using System;
 using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -7,8 +6,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Food_Journal.ClientApi.Controllers;
+using Food_Journal.Shared.Constants;
 using Food_Journal.Shared.Services;
 using Food_Journal.Shared.ViewModels;
+using Food_Journal.Shared.Views;
+using GalaSoft.MvvmLight.Views;
+using Unity.Lifetime;
 
 namespace Food_Journal
 {
@@ -105,6 +108,8 @@ namespace Food_Journal
 
         void _RegisterDependencies()
         {
+            _RegisterViewModels();
+
             // API Services
             Container
                 .RegisterType<IUserController, UserController>();
@@ -115,8 +120,20 @@ namespace Food_Journal
 
             // View Models
             Container
-                .RegisterType<LoginPageVM>()
-                .RegisterType<RegisterPageVM>();
+                .RegisterType<LoginPageViewModel>()
+                .RegisterType<RegisterPageViewModel>();
+        }
+
+        void _RegisterViewModels()
+        {
+            var navigationService = new NavigationService();
+
+            foreach (var token in PageTokens.TokenMappings)
+            {
+                navigationService.Configure(token.Key, token.Value);
+            }
+
+            Container.RegisterInstance(typeof(INavigationService), navigationService, new SingletonLifetimeManager());
         }
     }
 }

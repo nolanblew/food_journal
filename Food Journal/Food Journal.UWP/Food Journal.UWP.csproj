@@ -8,11 +8,11 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.9</Version>
     </PackageReference>
-    <PackageReference Include="MvvmLight">
-      <Version>5.4.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Unity">
       <Version>5.8.11</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.GalaSoft.MvvmLight.Platform">
+      <Version>5.4.0-uno.134</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>
