@@ -110,7 +110,8 @@ namespace Food_Journal
 
             // View Models
             Container
-                .RegisterType<LoginPageVM>();
+                .RegisterType<LoginPageVM>()
+                .RegisterType<RegisterPageVM>();
         }
     }
 }

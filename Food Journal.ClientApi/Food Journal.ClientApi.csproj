@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard20</TargetFramework>
+    <TargetFrameworks>netstandard20;MonoAndroid81</TargetFrameworks>
     <RootNamespace>Food_Journal.ClientApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MsBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
   </ItemGroup>
 
@@ -13,4 +14,5 @@
     <ProjectReference Include="..\Food Journal.DB\Food Journal.DB.csproj" />
   </ItemGroup>
 
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
