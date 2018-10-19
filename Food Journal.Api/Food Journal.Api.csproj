@@ -26,7 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Food Journal.DB\Food Journal.DB.csproj" />
+    <Reference Include="Food Journal.DB">
+      <HintPath>..\Food Journal.DB\bin\Debug\netstandard20\Food Journal.DB.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

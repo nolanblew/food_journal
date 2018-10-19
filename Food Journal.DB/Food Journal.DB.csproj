@@ -8,5 +8,17 @@
     <PackageReference Include="MsBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\.nuget\packages\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <!--<Target Name="GetTargetPath" Returns="@(_FakeOutputPath)">
+    <ItemGroup>
+      <_FakeOutputPath Include="C:\Users\NolanBlew\Source\Repos\Food Journal\Food Journal.DB\bin\Debug\$(Output)\FoodJournal.DB.dll" />
+      <_FakeOutputPath Include="$(MSBuildProjectDirectory)\$(PackageOutputPath)\$(TargetFramework)\$(AssemblyName)$(TargetExt)" />
+    </ItemGroup>
+  </Target>-->
 </Project>

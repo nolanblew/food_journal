@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Food_Journal.Api.Helpers;
+using Food_Journal.DB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Food_Journal.Api;
-using Food_Journal.DB.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Food_Journal.Api.Controllers
 {
@@ -21,11 +19,42 @@ namespace Food_Journal.Api.Controllers
             _context = context;
         }
 
-        // GET: api/Users
-        [HttpGet]
-        public IEnumerable<User> GetUsers()
+        // POST: api/Users/login?username=blah&password=blah
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginUser([FromHeader]string username, [FromHeader]string password)
         {
-            return _context.Users;
+            if (string.IsNullOrWhiteSpace(username)
+                || string.IsNullOrWhiteSpace(password))
+            {
+                return BadRequest();
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(
+                    u => u.Username.Equals(
+                             username, StringComparison.OrdinalIgnoreCase)
+                          && u.Password == password);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.LastLoggedIn = DateTimeOffset.Now;
+            _context.SaveChanges();
+
+            return Ok(user.ToPartial());
+        }
+
+        // GET: api/Users/check_username
+        [HttpGet("check_username")]
+        public async Task<IActionResult> CheckUsername([FromQuery]string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return BadRequest();
+            }
+
+            return Ok(_UsernameExists(username));
         }
 
         // GET: api/Users/5
@@ -44,7 +73,7 @@ namespace Food_Journal.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(user.ToPartial());
         }
 
         // PUT: api/Users/5
@@ -71,7 +100,7 @@ namespace Food_Journal.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!_UserExists(id))
                 {
                     return NotFound();
                 }
@@ -88,7 +117,7 @@ namespace Food_Journal.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || _UsernameExists(user.Username))
             {
                 return BadRequest(ModelState);
             }
@@ -99,7 +128,7 @@ namespace Food_Journal.Api.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user.ToPartial());
         }
 
         // DELETE: api/Users/5
@@ -120,12 +149,17 @@ namespace Food_Journal.Api.Controllers
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok(user.ToPartial());
         }
 
-        private bool UserExists(int id)
+        private bool _UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+
+        private bool _UsernameExists(string username)
+        {
+            return _context.Users.Any(e => e.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

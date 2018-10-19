@@ -16,9 +16,14 @@ namespace Food_Journal.ClientApi.Controllers
     {
         protected override string ControllerEndpoint => "users";
 
-        public Task<List<User>> GetUsers()
+        public Task<User> LoginUser(string username, string hashedPassword)
         {
-            return _ListAsync();
+            return _RequestApi<User>("login");
+        }
+
+        public Task<bool> UsernameExists(string username)
+        {
+            return _RequestApi<User>("exists");
         }
 
         public Task<User> ShowUser(int id)

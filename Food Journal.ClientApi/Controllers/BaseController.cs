@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -72,14 +73,20 @@ namespace Food_Journal.ClientApi.Controllers
             }
         }
 
-        protected async Task<TOut> _RequestApi<TOut>(string relativeEndpoint)
+        protected async Task<TOut> _RequestApi<TOut>(string relativeEndpoint, params string[] arguments)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new
                     Uri("https://api-foodjournal.azurewebsites.net");
 
-                var path = $"{BASE_ENDPOINT}/{ControllerEndpoint}/{relativeEndpoint}";
+                var args = "";
+                if (arguments.Any())
+                {
+                    args = "?" + string.Join("&", arguments);
+                }
+
+                var path = $"{BASE_ENDPOINT}/{ControllerEndpoint}/{relativeEndpoint}{args}";
                 var json = await client.GetStringAsync(path);
                 var result = JsonConvert.DeserializeObject<TOut>(json);
                 return result;
