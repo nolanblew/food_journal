@@ -47,6 +47,16 @@
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LocalDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\LocalDebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android.Export" />
@@ -60,11 +70,11 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>2.1.1</Version>
     </PackageReference>
-    <PackageReference Include="MvvmLight">
-      <Version>5.4.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Unity">
       <Version>5.8.11</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.GalaSoft.MvvmLight.Platform">
+      <Version>5.4.0-uno.134</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI">
       <Version>1.40.0</Version>
@@ -91,6 +101,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Food Journal.ClientApi\Food Journal.ClientApi.csproj">
+      <Project>{44f0a917-3eb1-4beb-851c-fe062c7c3eb1}</Project>
+      <Name>Food Journal.ClientApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Food Journal.DB\Food Journal.DB.csproj">
+      <Project>{5161da94-694d-4605-a807-66ebca9743ca}</Project>
+      <Name>Food Journal.DB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Food_Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" Condition="Exists('..\Food_Journal.Shared\Food_Journal.Shared.projitems')" />
   <Import Project="..\Food Journal.Shared\Food_Journal.Shared.projitems" Label="Shared" />

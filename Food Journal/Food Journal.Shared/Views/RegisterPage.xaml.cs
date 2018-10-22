@@ -13,19 +13,20 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Food_Journal.Shared.ViewModels;
+using Unity;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Food_Journal.Shared.Pages
+namespace Food_Journal.Shared.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LoginPage : Page
+    public sealed partial class RegisterPage : Page
     {
-        public LoginPage()
+        public RegisterPage()
         {
-            DataContext = new LoginPageVM();
+            DataContext = App.Container.Resolve<RegisterPageViewModel>();
             this.InitializeComponent();
         }
     }

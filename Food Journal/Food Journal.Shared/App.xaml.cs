@@ -1,11 +1,17 @@
-﻿using Food_Journal.Shared.Pages;
-using System;
+﻿using System;
 using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Food_Journal.ClientApi.Controllers;
+using Food_Journal.Shared.Constants;
+using Food_Journal.Shared.Services;
+using Food_Journal.Shared.ViewModels;
+using Food_Journal.Shared.Views;
+using GalaSoft.MvvmLight.Views;
+using Unity.Lifetime;
 
 namespace Food_Journal
 {
@@ -54,7 +60,7 @@ namespace Food_Journal
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
+                { 
                     //TODO: Load state from previously suspended application
                 }
 
@@ -102,9 +108,32 @@ namespace Food_Journal
 
         void _RegisterDependencies()
         {
-            //Container
-            //    .RegisterSingleton<ApplicationContext>()
-            //    .RegisterType<IUserRepository, UserRepository>();
+            _RegisterViewModels();
+
+            // API Services
+            Container
+                .RegisterType<IUserController, UserController>();
+
+            // Local Services
+            Container
+                .RegisterSingleton<IApplicationState, ApplicationState>();
+
+            // View Models
+            Container
+                .RegisterType<LoginPageViewModel>()
+                .RegisterType<RegisterPageViewModel>();
+        }
+
+        void _RegisterViewModels()
+        {
+            var navigationService = new NavigationService();
+
+            foreach (var token in PageTokens.TokenMappings)
+            {
+                navigationService.Configure(token.Key, token.Value);
+            }
+
+            Container.RegisterInstance(typeof(INavigationService), navigationService, new SingletonLifetimeManager());
         }
     }
 }
