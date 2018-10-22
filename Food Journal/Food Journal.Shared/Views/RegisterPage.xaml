@@ -21,6 +21,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
@@ -46,7 +47,7 @@
                 <TextBlock Text="Full Name"
                            Margin="0 12 0 2"
                            FontSize="12" />
-                <TextBox Text="{Binding FullName, Mode=TwoWay}"
+                <TextBox Text="{Binding NewUser.Name, Mode=TwoWay}"
                          IsEnabled="{Binding IsBusy, Converter={StaticResource InvBoolConverter}}" />
             </StackPanel>
 
@@ -55,7 +56,7 @@
                 <TextBlock Text="Username"
                            Margin="0 12 0 2"
                            FontSize="12" />
-                <TextBox Text="{Binding Username, Mode=TwoWay}"
+                <TextBox Text="{Binding NewUser.Username, Mode=TwoWay}"
                          IsEnabled="{Binding IsBusy, Converter={StaticResource InvBoolConverter}}" />
             </StackPanel>
 
@@ -64,8 +65,14 @@
                 <TextBlock Text="Password"
                            Margin="0 12 0 2"
                            FontSize="12" />
-                <PasswordBox Password="{Binding Password, Mode=TwoWay}"
+                <PasswordBox Password="{Binding PotentialPassword, Mode=TwoWay}"
                              IsEnabled="{Binding IsBusy, Converter={StaticResource InvBoolConverter}}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="6"
+                        Orientation="Horizontal">
+                <Button Content="Register"
+                        Command="{Binding CreateUserCommand}" />
             </StackPanel>
         </Grid>
     </Grid>

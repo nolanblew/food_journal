@@ -4,6 +4,7 @@ using Food_Journal.Shared.Helpers;
 using System;
 using System.Linq;
 using System.Windows.Input;
+using Windows.UI.Popups;
 using Food_Journal.Shared.Constants;
 using Food_Journal.Shared.Services;
 using GalaSoft.MvvmLight.Views;
@@ -69,13 +70,23 @@ namespace Food_Journal.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                var results = await _userController.GetUsers();
+                var isSuccess = false;
+                try
+                {
+                    var hashedPassword = CryptoHelper.HashPassword(Password);
+                    var loggedInUser = await _userController.LoginUser(Username, hashedPassword);
 
-                var hashedPassword = CryptoHelper.HashPassword(Password);
-                var loggedInUser = results.FirstOrDefault(u => u.Username.Equals(Username, StringComparison.OrdinalIgnoreCase)
-                                                      && u.Password == hashedPassword);
-
-                if (loggedInUser == null)
+                    if (loggedInUser != null)
+                    {
+                        _applicationState.CurrentUser = loggedInUser;
+                        isSuccess = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                
+                if (!isSuccess)
                 {
                     ErrorMessage = "Error: Username and password do not match";
                     Password = string.Empty;
@@ -84,7 +95,8 @@ namespace Food_Journal.Shared.ViewModels
                 {
                     Username = string.Empty;
                     Password = string.Empty;
-                    _applicationState.CurrentUser = loggedInUser;
+
+                    await new MessageDialog($"Welcome, {_applicationState.CurrentUser.Name}!").ShowAsync();
                 }
             }
             finally

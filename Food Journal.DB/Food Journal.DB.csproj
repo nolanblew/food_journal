@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard20;MonoAndroid81</TargetFrameworks>
     <RootNamespace>Food_Journal.DB</RootNamespace>
+    <Configurations>Debug;Release;LocalDebug</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

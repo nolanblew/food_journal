@@ -1,8 +1,12 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.UI.Popups;
 using Food_Journal.ClientApi.Controllers;
 using Food_Journal.DB.Models;
 using Food_Journal.Shared.Services;
 using Food_Journal.Shared.Utils;
+using GalaSoft.MvvmLight.Views;
 
 namespace Food_Journal.Shared.ViewModels
 {
@@ -10,16 +14,19 @@ namespace Food_Journal.Shared.ViewModels
     {
         public RegisterPageViewModel(
             IApplicationState applicationState,
-            IUserController userController)
+            IUserController userController,
+            INavigationService navigationService)
         {
             _applicationState = applicationState;
             _userController = userController;
+            _navigationService = navigationService;
 
             CreateUserCommand = new DelegateCommand(_CreateUser);
         }
 
         private readonly IApplicationState _applicationState;
         private readonly IUserController _userController;
+        private readonly INavigationService _navigationService;
 
         public ICommand CreateUserCommand { get; }
 
@@ -29,6 +36,14 @@ namespace Food_Journal.Shared.ViewModels
         {
             get { return _newUser; }
             set { SetProperty(ref _newUser, value); }
+        }
+
+        string _potentialPassword;
+
+        public string PotentialPassword
+        {
+            get { return _potentialPassword; }
+            set { SetProperty(ref _potentialPassword, value); }
         }
 
         string _errorMessage;
@@ -47,40 +62,67 @@ namespace Food_Journal.Shared.ViewModels
             set { SetProperty(ref _isBusy, value); }
         }
 
-        void _CreateUser()
+        async void _CreateUser()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                IsBusy = true;
+
+                var validResult = await _isUserValidAsync();
+                if (!validResult.IsValid)
+                {
+                    ErrorMessage = validResult.ErrorMessage;
+                    IsBusy = false;
+                    return;
+                }
+
+                NewUser.Password = Helpers.CryptoHelper.HashPassword(PotentialPassword);
+                try
+                {
+                    var loggedInUser = await _userController.CreateUser(NewUser);
+                    _applicationState.CurrentUser = loggedInUser;
+                    await new MessageDialog($"Welcome, {_applicationState.CurrentUser.Name}!").ShowAsync();
+                    _navigationService.GoBack();
+                }
+                catch (Exception ex)
+                {
+                    ErrorMessage = $"Error: {ex.Message}";
+                }
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        bool _isUserValid(out string message)
+        async Task<(bool IsValid, string ErrorMessage)> _isUserValidAsync()
         {
             if (NewUser.Name.Length < 4)
             {
-                message = "Please enter your full name.";
-                return false;
+                return (false, "Please enter your full name.");
             }
 
             if (string.IsNullOrEmpty(NewUser.Username))
             {
-                message = "Please enter a username.";
-                return false;
+                return (false, "Please enter a username.");
             }
 
             if (NewUser.Username.Length < 5)
             {
-                message = "Please enter a username 5 characters or more.";
-                return false;
+                return (false, "Please enter a username 5 characters or more.");
             }
 
-            if (NewUser.Password.Length < 5)
+            if (PotentialPassword.Length < 5)
             {
-                message = "Please enter a password 5 characters or more.";
+                return (false, "Please enter a password 5 characters or more.");
             }
 
+            if (await _userController.UsernameExists(NewUser.Username))
+            {
+                return (false, "Username is already taken.");
+            }
 
-
-            message = string.Empty;
-            return true;
+            return (true, null);
         }
     }
 }

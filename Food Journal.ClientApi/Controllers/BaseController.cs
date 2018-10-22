@@ -10,7 +10,13 @@ namespace Food_Journal.ClientApi.Controllers
 {
     public abstract class BaseController<T> where T : BaseModel
     {
-        const string BASE_ENDPOINT = "https://api-foodjournal.azurewebsites.net/api";
+        protected const string BASE_ADDRESS =
+#if DEBUG
+            "http://localhost:65419/";
+#else
+            "https://api-foodjournal.azurewebsites.net";
+#endif
+        protected const string BASE_ENDPOINT = BASE_ADDRESS + "/api";
 
         /// <summary>
         /// The endpoint of the controller (without the slashes). ex: users
@@ -32,7 +38,7 @@ namespace Food_Journal.ClientApi.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new
-                    Uri("https://api-foodjournal.azurewebsites.net");
+                    Uri(BASE_ADDRESS);
 
                 var path = $"{BASE_ENDPOINT}/{ControllerEndpoint}/";
                 var apiResult = await client.PostAsJsonAsync<T>(path, item);
@@ -48,7 +54,7 @@ namespace Food_Journal.ClientApi.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new
-                    Uri("https://api-foodjournal.azurewebsites.net");
+                    Uri(BASE_ADDRESS);
 
                 var path = $"{BASE_ENDPOINT}/{ControllerEndpoint}/{id}";
                 var apiResult = await client.PutAsJsonAsync<T>(path, item);
@@ -64,7 +70,7 @@ namespace Food_Journal.ClientApi.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new
-                    Uri("https://api-foodjournal.azurewebsites.net");
+                    Uri(BASE_ADDRESS);
 
                 var path = $"{BASE_ENDPOINT}/{ControllerEndpoint}/{id}";
                 var apiResult = await client.DeleteAsync(path);
@@ -78,7 +84,7 @@ namespace Food_Journal.ClientApi.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new
-                    Uri("https://api-foodjournal.azurewebsites.net");
+                    Uri(BASE_ADDRESS);
 
                 var args = "";
                 if (arguments.Any())

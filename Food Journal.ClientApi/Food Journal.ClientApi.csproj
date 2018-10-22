@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard20;MonoAndroid81</TargetFrameworks>
     <RootNamespace>Food_Journal.ClientApi</RootNamespace>
+    <Configurations>Debug;Release;LocalDebug</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

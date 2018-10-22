@@ -28,8 +28,6 @@ namespace FoodJournal.Api.Migrations
                     table.PrimaryKey("PK_Locations", x => x.Id);
                 });
 
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Locations', RESEED, NewSeedValue)");
-
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -47,8 +45,6 @@ namespace FoodJournal.Api.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
-
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Users', RESEED, NewSeedValue)");
 
             migrationBuilder.CreateTable(
                 name: "Entries",
@@ -81,8 +77,6 @@ namespace FoodJournal.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Entries', RESEED, NewSeedValue)");
 
             migrationBuilder.CreateTable(
                 name: "FoodItemEntries",
@@ -136,8 +130,6 @@ namespace FoodJournal.Api.Migrations
                 table: "Users",
                 column: "Username",
                 unique: true);
-
-            migrationBuilder.Sql("DBCC CHECKIDENT ('FoodItemEntries', RESEED, NewSeedValue)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

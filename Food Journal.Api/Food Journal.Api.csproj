@@ -7,6 +7,7 @@
     <Authors>Nolan Blew</Authors>
     <Product>Food Journal</Product>
     <RootNamespace>Food_Journal.Api</RootNamespace>
+    <Configurations>Debug;Release;LocalDebug</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

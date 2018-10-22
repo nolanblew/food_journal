@@ -1,13 +1,19 @@
-﻿using Food_Journal.DB.Models;
+﻿using System;
+using Food_Journal.DB.Models;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Food_Journal.ClientApi.Controllers
 {
     public interface IUserController
     {
+        Task<User> LoginUser(string username, string hashedPassword);
+        Task<bool> UsernameExists(string username);
         Task<User> CreateUser(User user);
-        Task<List<User>> GetUsers();
         Task<User> ShowUser(int id);
         Task<User> UpdateUser(int id, User user);
     }
@@ -16,14 +22,64 @@ namespace Food_Journal.ClientApi.Controllers
     {
         protected override string ControllerEndpoint => "users";
 
-        public Task<User> LoginUser(string username, string hashedPassword)
+        public async Task<User> LoginUser(string username, string hashedPassword)
         {
-            return _RequestApi<User>("login");
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new
+                    Uri(BASE_ADDRESS);
+
+                var path = $"{BASE_ENDPOINT}/{ControllerEndpoint}/login";
+
+                var request = new HttpRequestMessage
+                {
+                    RequestUri = new Uri(path),
+                    Method = HttpMethod.Post,
+                };
+
+                request.Headers.Add("username", username);
+                request.Headers.Add("password", hashedPassword);
+
+                try
+                {
+                    var response = await client.SendAsync(request);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return null;
+                    }
+                    response.EnsureSuccessStatusCode();
+
+                    var json = await response.Content.ReadAsStringAsync();
+                    var user = JsonConvert.DeserializeObject<User>(json);
+                    return user;
+                }
+                catch
+                {
+                    throw;
+                    //return null;
+                }
+            }
         }
 
-        public Task<bool> UsernameExists(string username)
+        public async Task<bool> UsernameExists(string username)
         {
-            return _RequestApi<User>("exists");
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new
+                    Uri(BASE_ADDRESS);
+                
+                var path = $"{BASE_ENDPOINT}/{ControllerEndpoint}/check_username?username={username}";
+                try
+                {
+                    var response = await client.GetStringAsync(path);
+                    return bool.Parse(response);
+                }
+                catch
+                {
+                    throw;
+                    //return false;
+                }
+            }
         }
 
         public Task<User> ShowUser(int id)
