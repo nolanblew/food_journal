@@ -24,5 +24,7 @@ namespace Food_Journal.Droid
             : base(new App(), javaReference, transfer)
         {
         }
+
+        public Context CurrentContext => this.ApplicationContext;
     }
 }

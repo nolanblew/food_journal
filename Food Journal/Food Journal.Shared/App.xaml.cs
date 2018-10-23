@@ -112,7 +112,8 @@ namespace Food_Journal
 
             // Local Services
             Container
-                .RegisterSingleton<IApplicationState, ApplicationState>();
+                .RegisterSingleton<IApplicationState, ApplicationState>()
+                .RegisterSingleton<ILocationService, LocationService>();
 
             // API Services
             Container

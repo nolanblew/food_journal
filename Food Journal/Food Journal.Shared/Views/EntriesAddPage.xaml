@@ -48,6 +48,10 @@
                              Text="{Binding CurrentEntry.Title}"
                              PlaceholderText="Title" />
 
+                    <AutoSuggestBox Margin="8"
+                                    Text="{Binding CurrentEntry.Location.Name}"
+                                    PlaceholderText="Location" />
+
                     <TextBox Margin="8"
                              Text="{Binding CurrentEntry.Notes}"
                              PlaceholderText="Notes"

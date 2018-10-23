@@ -58,7 +58,7 @@
             </Grid.RowDefinitions>
 
             <Grid Background="LightCoral">
-                <TextBlock Text="Could not determine location"
+                <TextBlock Text="{Binding BannerMessage}"
                            HorizontalAlignment="Center"
                            HorizontalTextAlignment="Center"
                            TextWrapping="Wrap"

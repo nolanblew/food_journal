@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Views;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Navigation;
 
 namespace Food_Journal.Shared.ViewModels
@@ -15,18 +16,25 @@ namespace Food_Journal.Shared.ViewModels
     {
         public EntriesListPageViewModel(
             IApplicationState applicationState,
+            ILocationService locationService,
             IEntriesController entriesController,
             INavigationService navigationService)
             : base(navigationService)
         {
             _applicationState = applicationState;
+            _locationService = locationService;
             _entriesController = entriesController;
 
             AddEntryCommand = new DelegateCommand(_AddEntry);
-            SettingsCommand = new DelegateCommand(() => _GetEntries());
+            SettingsCommand = new DelegateCommand(() =>
+            {
+                _GetLocation();
+                _GetEntries();
+            });
         }
 
         private readonly IApplicationState _applicationState;
+        private readonly ILocationService _locationService;
         private readonly IEntriesController _entriesController;
 
         public ICommand LogoutCommand { get; }
@@ -45,6 +53,14 @@ namespace Food_Journal.Shared.ViewModels
             set { SetProperty(ref _isBusy, value); }
         }
 
+        string _bannerMessage;
+
+        public string BannerMessage
+        {
+            get { return _bannerMessage; }
+            set { SetProperty(ref _bannerMessage, value); }
+        }
+
         ObservableCollection<Entry> _nearbyEntries;
 
         public ObservableCollection<Entry> NearbyEntries
@@ -57,7 +73,32 @@ namespace Food_Journal.Shared.ViewModels
         {
             base.OnNavigatedTo(e);
 
+            _GetLocation();
             _GetEntries();
+        }
+
+        async Task _GetLocation()
+        {
+            if (!_locationService.HasLocationPermissions())
+            {
+                BannerMessage = "Location access not granted";
+                return;
+            }
+
+            BannerMessage = "Getting location...";
+
+            var location = await _locationService.GetCurrentLocation();
+
+            if (!location.HasValue)
+            {
+                BannerMessage = "Could not get location.";
+                return;
+            }
+
+            BannerMessage = $"Location at ({location.Value.Latitude}, {location.Value.Longitute})";
+            var dataPackage = new DataPackage();
+            dataPackage.SetText($"{location.Value.Latitude},{location.Value.Longitute}");
+            Clipboard.SetContent(dataPackage);
         }
 
         async Task _GetEntries()
