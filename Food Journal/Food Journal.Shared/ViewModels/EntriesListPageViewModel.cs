@@ -1,5 +1,6 @@
 ﻿using Food_Journal.ClientApi.Controllers;
 using Food_Journal.DB.Models;
+using Food_Journal.Shared.Constants;
 using Food_Journal.Shared.Services;
 using Food_Journal.Shared.Utils;
 using GalaSoft.MvvmLight.Views;
@@ -21,6 +22,7 @@ namespace Food_Journal.Shared.ViewModels
             _applicationState = applicationState;
             _entriesController = entriesController;
 
+            AddEntryCommand = new DelegateCommand(_AddEntry);
             SettingsCommand = new DelegateCommand(() => _GetEntries());
         }
 
@@ -28,9 +30,9 @@ namespace Food_Journal.Shared.ViewModels
         private readonly IEntriesController _entriesController;
 
         public ICommand LogoutCommand { get; }
-        public ICommand Search { get; }
-        public ICommand AddEntry { get; }
-        public ICommand ViewEntry { get; }
+        public ICommand SearchCommand { get; }
+        public ICommand AddEntryCommand { get; }
+        public ICommand ViewEntryCommand { get; }
         public ICommand SettingsCommand { get; }
 
         public User CurrentUser => _applicationState.CurrentUser;
@@ -70,6 +72,12 @@ namespace Food_Journal.Shared.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        void _AddEntry()
+        {
+            if (IsBusy) { return; }
+            _navigationService.NavigateTo(PageTokens.EntriesAddPage);
         }
     }
 }

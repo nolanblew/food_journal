@@ -69,11 +69,16 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBox PlaceholderText="Search" />
                 <Button Grid.Column="1">
                     <SymbolIcon Symbol="Find" />
+                </Button>
+                <Button Grid.Column="2"
+                        Command="{Binding AddEntryCommand}">
+                    <SymbolIcon Symbol="Add" />
                 </Button>
             </Grid>
 

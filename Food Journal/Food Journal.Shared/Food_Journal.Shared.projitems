@@ -24,8 +24,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\CryptoHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntriesAddPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntriesListPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ConnectorPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\EntriesAddPage.xaml.cs">
+      <DependentUpon>EntriesAddPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\EntriesListPage.xaml.cs">
       <DependentUpon>EntriesListPage.xaml</DependentUpon>
     </Compile>
@@ -47,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\EntriesAddPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -74,5 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
 </Project>

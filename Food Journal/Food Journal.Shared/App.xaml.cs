@@ -110,20 +110,21 @@ namespace Food_Journal
         {
             _RegisterViewModels();
 
+            // Local Services
+            Container
+                .RegisterSingleton<IApplicationState, ApplicationState>();
+
             // API Services
             Container
                 .RegisterType<IUserController, UserController>()
                 .RegisterType<IEntriesController, EntriesController>();
 
-            // Local Services
-            Container
-                .RegisterSingleton<IApplicationState, ApplicationState>();
-
             // View Models
             Container
                 .RegisterType<LoginPageViewModel>()
                 .RegisterType<RegisterPageViewModel>()
-                .RegisterType<EntriesListPageViewModel>();
+                .RegisterType<EntriesListPageViewModel>()
+                .RegisterType<EntriesAddPageViewModel>();
         }
 
         void _RegisterViewModels()
