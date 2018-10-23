@@ -23,9 +23,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InvBoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\CryptoHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewModelHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntriesListPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ConnectorPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\EntriesListPage.xaml.cs">
       <DependentUpon>EntriesListPage.xaml</DependentUpon>
     </Compile>

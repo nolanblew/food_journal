@@ -1,9 +1,6 @@
 ﻿using Food_Journal.Shared.Utils;
 using GalaSoft.MvvmLight.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Food_Journal.Shared.ViewModels
 {
@@ -16,14 +13,10 @@ namespace Food_Journal.Shared.ViewModels
 
         protected readonly INavigationService _navigationService;
 
-        public virtual void OnNavigatedTo()
-        {
+        public virtual void OnNavigatedTo(NavigationEventArgs e) { }
 
-        }
+        public virtual void OnNavigatingFrom(NavigatingCancelEventArgs e) { }
 
-        public virtual void OnNavigatedFrom()
-        {
-
-        }
+        public virtual void OnNavigatedFrom(NavigationEventArgs e) { }
     }
 }

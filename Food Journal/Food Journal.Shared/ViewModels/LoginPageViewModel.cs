@@ -96,7 +96,6 @@ namespace Food_Journal.Shared.ViewModels
                     Username = string.Empty;
                     Password = string.Empty;
 
-                    await new MessageDialog($"Welcome, {_applicationState.CurrentUser.Name}!").ShowAsync();
                     _navigationService.NavigateTo(PageTokens.EntriesListPage);
                 }
             }

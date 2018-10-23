@@ -14,6 +14,8 @@ namespace Food_Journal.ClientApi.Controllers
 
     public class EntriesController : BaseController<Entry>, IEntriesController
     {
+        protected override string ControllerEndpoint => "entries";
+        
         public async Task<List<Entry>> GetAllEntries(User user)
         {
             var allEntries = await _ListAsync();
