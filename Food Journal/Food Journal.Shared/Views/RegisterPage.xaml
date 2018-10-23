@@ -70,7 +70,9 @@
             </StackPanel>
 
             <StackPanel Grid.Row="6"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="8">
                 <Button Content="Register"
                         Command="{Binding CreateUserCommand}" />
             </StackPanel>

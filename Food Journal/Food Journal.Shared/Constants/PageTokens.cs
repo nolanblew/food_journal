@@ -10,9 +10,11 @@ namespace Food_Journal.Shared.Constants
         {
             {LoginPage, typeof(LoginPage)},
             {RegisterPage, typeof(RegisterPage)},
+            {EntriesListPage, typeof(EntriesListPage)},
         };
 
         public const string LoginPage = "LoginPage";
         public const string RegisterPage = "RegisterPage";
+        public const string EntriesListPage = "EntriesListPage";
     }
 }
