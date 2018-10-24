@@ -12,7 +12,11 @@ namespace Food_Journal.ClientApi.Controllers
     {
         protected const string BASE_ADDRESS =
 #if DEBUG
+#if __ANDROID__
+            "http://10.0.2.2:65419/";
+#else
             "http://localhost:65419/";
+#endif
 #else
             "https://api-foodjournal.azurewebsites.net";
 #endif
@@ -21,16 +25,16 @@ namespace Food_Journal.ClientApi.Controllers
         /// <summary>
         /// The endpoint of the controller (without the slashes). ex: users
         /// </summary>
-        protected virtual string ControllerEndpoint { get; }
+        protected abstract string ControllerEndpoint { get; }
 
         protected Task<List<T>> _ListAsync()
         {
-            return _RequestApi<List<T>>("/");
+            return _RequestApi<List<T>>("");
         }
 
         protected Task<T> _ShowAsync(int id)
         {
-            return _RequestApi<T>($"/{id}");
+            return _RequestApi<T>(id.ToString());
         }
 
         public async Task<T> _CreateAsync(T item)

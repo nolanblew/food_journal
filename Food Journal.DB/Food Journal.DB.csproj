@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard20;MonoAndroid81</TargetFrameworks>
+    <TargetFrameworks>netstandard20;MonoAndroid81;xamarinios10</TargetFrameworks>
     <RootNamespace>Food_Journal.DB</RootNamespace>
     <Configurations>Debug;Release;LocalDebug</Configurations>
   </PropertyGroup>

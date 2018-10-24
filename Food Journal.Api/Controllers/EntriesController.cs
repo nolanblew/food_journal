@@ -10,7 +10,7 @@ using Food_Journal.DB.Models;
 
 namespace Food_Journal.Api.Controllers
 {
-    [Route("api/users/{userId}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EntriesController : ControllerBase
     {

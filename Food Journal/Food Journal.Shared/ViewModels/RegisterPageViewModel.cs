@@ -7,6 +7,7 @@ using Food_Journal.DB.Models;
 using Food_Journal.Shared.Services;
 using Food_Journal.Shared.Utils;
 using GalaSoft.MvvmLight.Views;
+using Food_Journal.Shared.Constants;
 
 namespace Food_Journal.Shared.ViewModels
 {
@@ -81,8 +82,7 @@ namespace Food_Journal.Shared.ViewModels
                 {
                     var loggedInUser = await _userController.CreateUser(NewUser);
                     _applicationState.CurrentUser = loggedInUser;
-                    await new MessageDialog($"Welcome, {_applicationState.CurrentUser.Name}!").ShowAsync();
-                    _navigationService.GoBack();
+                    _navigationService.NavigateTo(PageTokens.EntriesListPage);
                 }
                 catch (Exception ex)
                 {

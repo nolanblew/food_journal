@@ -57,7 +57,7 @@ namespace Food_Journal.Shared.ViewModels
             set { SetProperty(ref _password, value); }
         }
 
-        bool _isBusy;
+        bool _isBusy = false;
 
         public bool IsBusy
         {
@@ -96,7 +96,7 @@ namespace Food_Journal.Shared.ViewModels
                     Username = string.Empty;
                     Password = string.Empty;
 
-                    await new MessageDialog($"Welcome, {_applicationState.CurrentUser.Name}!").ShowAsync();
+                    _navigationService.NavigateTo(PageTokens.EntriesListPage);
                 }
             }
             finally
