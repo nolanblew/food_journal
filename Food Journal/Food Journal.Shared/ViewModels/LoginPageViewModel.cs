@@ -57,7 +57,7 @@ namespace Food_Journal.Shared.ViewModels
             set { SetProperty(ref _password, value); }
         }
 
-        bool _isBusy;
+        bool _isBusy = false;
 
         public bool IsBusy
         {

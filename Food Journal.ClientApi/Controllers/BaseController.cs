@@ -12,7 +12,11 @@ namespace Food_Journal.ClientApi.Controllers
     {
         protected const string BASE_ADDRESS =
 #if DEBUG
+#if __ANDROID__
+            "http://10.0.2.2:65419/";
+#else
             "http://localhost:65419/";
+#endif
 #else
             "https://api-foodjournal.azurewebsites.net";
 #endif
